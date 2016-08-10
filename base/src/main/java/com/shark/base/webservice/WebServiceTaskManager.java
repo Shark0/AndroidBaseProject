@@ -6,21 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 
-public class WebServiceTaskManager {
+public class WebServiceTaskManager implements WebServiceWorker.WorkListener {
     private static WebServiceTaskManager instance;
 
 	private static Set<WebServiceWorker<?>> workers = new HashSet<WebServiceWorker<?>>();
 
-	private WebServiceWorker.WorkListener listener = new WebServiceWorker.WorkListener() {
-		@Override
-		public void onWorkDone(WebServiceWorker<?> worker) {
-			synchronized (workers) {
-				workers.remove(worker);
-			}
-		}
-	};
-
-	public void startTask(WebServiceWorker worker, WebServiceTask<?> task,  Object tag) {
+	public void startTask(WebServiceWorker worker, Object tag) {
 		synchronized (workers) {
 			worker.setTag(tag);
 			workers.add(worker);
@@ -56,4 +47,11 @@ public class WebServiceTaskManager {
         }
         return instance;
     }
+
+	@Override
+	public void onWorkDone(WebServiceWorker<?> worker) {
+		synchronized (workers) {
+			workers.remove(worker);
+		}
+	}
 }

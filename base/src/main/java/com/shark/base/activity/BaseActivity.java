@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import com.shark.base.webservice.WebServiceTask;
+
 import com.shark.base.webservice.WebServiceTaskManager;
 import com.shark.base.webservice.WebServiceWorker;
 public class BaseActivity extends AppCompatActivity {
@@ -201,8 +201,8 @@ public class BaseActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
-    public void startWebServiceTask(WebServiceWorker worker, WebServiceTask task) {
-        WebServiceTaskManager.getInstance().startTask(worker, task, this);
+    public void startWebServiceTask(WebServiceWorker worker) {
+        WebServiceTaskManager.getInstance().startTask(worker, this);
     }
 
     public void cancelAllWebServiceTask() {

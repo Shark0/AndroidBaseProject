@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.shark.base.webservice.WebServiceTask;
 import com.shark.base.webservice.WebServiceTaskManager;
 import com.shark.base.webservice.WebServiceWorker;
 
@@ -229,8 +228,8 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public void startWebServiceTask(WebServiceWorker worker, WebServiceTask task) {
-        WebServiceTaskManager.getInstance().startTask(worker, task, this);
+    public void startWebServiceTask(WebServiceWorker worker) {
+        WebServiceTaskManager.getInstance().startTask(worker, this);
     }
 
     public void cancelAllWebServiceTask() {
