@@ -3,7 +3,7 @@ package com.shark.baseproject.webservice;
 
 import com.shark.baseproject.manager.ApplicationManager;
 
-public class WebServiceHostCenter {
+public class WebServiceHost {
     public enum HostType {Production, Test, Develop}
 
     //FIXME

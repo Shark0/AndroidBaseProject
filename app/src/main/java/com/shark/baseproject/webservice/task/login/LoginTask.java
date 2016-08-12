@@ -6,7 +6,7 @@ import com.shark.base.webservice.HttpMethod;
 import com.shark.base.webservice.WebServiceErrorType;
 import com.shark.base.webservice.WebServiceTask;
 import com.shark.baseproject.webservice.ResponseDataEntity;
-import com.shark.baseproject.webservice.WebServiceHostCenter;
+import com.shark.baseproject.webservice.WebServiceHost;
 import com.shark.baseproject.webservice.factory.HeaderFactory;
 import com.shark.baseproject.webservice.task.login.entity.LoginInputEntity;
 import com.shark.baseproject.webservice.task.login.entity.LoginResultEntity;
@@ -20,11 +20,11 @@ import java.util.Map;
  */
 public class LoginTask extends WebServiceTask<ResponseDataEntity<LoginResultEntity>> {
 
-    private LoginResponseListener listener;
+    private LoginTaskListener listener;
     private LoginInputEntity loginInput;
     private Gson gson = new Gson();
 
-    public LoginTask(LoginResponseListener listener, LoginInputEntity loginInput) {
+    public LoginTask(LoginTaskListener listener, LoginInputEntity loginInput) {
         this.listener = listener;
         this.loginInput = loginInput;
         setDebug(true);
@@ -37,7 +37,8 @@ public class LoginTask extends WebServiceTask<ResponseDataEntity<LoginResultEnti
 
     @Override
     public String generateServiceUrl() {
-        return WebServiceHostCenter.getServiceHost() + "your_login_api_path";
+        //FIXME change your api host and path - Shark.M.Lin
+        return WebServiceHost.getServiceHost() + "your_login_api_path";
     }
 
     @Override
@@ -65,22 +66,22 @@ public class LoginTask extends WebServiceTask<ResponseDataEntity<LoginResultEnti
     @Override
     public void onTaskSucceed(ResponseDataEntity<LoginResultEntity> entity) {
         if(entity.getResultCode() == 0) {
-            listener.onLoginResponseSuccess(entity.getData());
+            listener.onLoginTaskSuccess(entity.getData());
         } else {
-            listener.onLoginResponseError(entity.getResultCode(), entity.getDescription());
+            listener.onLoginTaskError(entity.getResultCode(), entity.getDescription());
         }
     }
 
     @Override
     public void onTaskFailed(WebServiceErrorType errorType) {
-        listener.onLoginNetworkError(errorType);
+        listener.onLoginTaskNetworkError(errorType);
     }
 
-    public interface LoginResponseListener {
-        void onLoginResponseSuccess(LoginResultEntity result);
+    public interface LoginTaskListener {
+        void onLoginTaskSuccess(LoginResultEntity result);
 
-        void onLoginResponseError(int resultCode, String description);
+        void onLoginTaskError(int resultCode, String description);
 
-        void onLoginNetworkError(WebServiceErrorType errorType);
+        void onLoginTaskNetworkError(WebServiceErrorType errorType);
     }
 }

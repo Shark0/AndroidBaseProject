@@ -41,6 +41,10 @@
         </activity>
 
         <activity android:name=".activity.home.HomeActivity"/>
+
+        <activity android:name=".activity.product.ProductListActivity"
+            android:label="Product List"
+            />
     </application>
 
 </manifest>

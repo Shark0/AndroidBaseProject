@@ -22,7 +22,7 @@ import com.shark.baseproject.webservice.task.login.LoginTask;
 import com.shark.baseproject.webservice.task.login.entity.LoginInputEntity;
 import com.shark.baseproject.webservice.task.login.entity.LoginResultEntity;
 
-public class LoginActivity extends BaseDemoActivity implements View.OnClickListener, TextView.OnEditorActionListener, LoginTask.LoginResponseListener {
+public class LoginActivity extends BaseDemoActivity implements View.OnClickListener, TextView.OnEditorActionListener, LoginTask.LoginTaskListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class LoginActivity extends BaseDemoActivity implements View.OnClickListe
 
     private void onActionSkipItemSelected() {
         startHomeActivity();
+        finish();
     }
 
     private void bindContentView() {
@@ -124,20 +125,22 @@ public class LoginActivity extends BaseDemoActivity implements View.OnClickListe
     }
 
     @Override
-    public void onLoginResponseSuccess(LoginResultEntity result) {
+    public void onLoginTaskSuccess(LoginResultEntity result) {
         LoginManager.getInstance().setLoginResult(result);
         hideLoadingDialog();
         startHomeActivity();
+        finish();
+
     }
 
     @Override
-    public void onLoginResponseError(int resultCode, String description) {
+    public void onLoginTaskError(int resultCode, String description) {
         hideLoadingDialog();
         Toast.makeText(this, description, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onLoginNetworkError(WebServiceErrorType errorType) {
+    public void onLoginTaskNetworkError(WebServiceErrorType errorType) {
         hideLoadingDialog();
         String description = generateNetworkErrorDescription(errorType);
         Toast.makeText(this, description, Toast.LENGTH_SHORT).show();

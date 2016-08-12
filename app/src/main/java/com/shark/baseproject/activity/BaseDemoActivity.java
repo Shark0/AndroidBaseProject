@@ -1,9 +1,14 @@
 package com.shark.baseproject.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.TextView;
+
 import com.shark.base.activity.BaseActivity;
 import com.shark.base.webservice.WebServiceErrorType;
 import com.shark.base.webservice.WebServiceTask;
-import com.shark.base.webservice.WebServiceTaskManager;
+import com.shark.baseproject.R;
 import com.shark.baseproject.webservice.worker.VolleyWebServiceWorker;
 
 /**
@@ -11,8 +16,14 @@ import com.shark.baseproject.webservice.worker.VolleyWebServiceWorker;
  */
 public class BaseDemoActivity extends BaseActivity {
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bindNetworkStateViews();
+    }
+
     protected void startWebServiceTask(WebServiceTask task) {
-        startWebServiceTask(new VolleyWebServiceWorker(task, WebServiceTaskManager.getInstance()));
+        startWebServiceTask(new VolleyWebServiceWorker(task, this));
     };
 
     protected String generateNetworkErrorDescription(WebServiceErrorType errorType) {
@@ -36,4 +47,41 @@ public class BaseDemoActivity extends BaseActivity {
         }
         return description;
     }
+
+    protected void bindNetworkStateViews() {
+        setLoadingViewContainerId(R.id.viewLoading_container);
+        setMessageViewContainerId(R.id.viewMessage_container);
+        setEmptyViewContainerId(R.id.viewEmpty_container);
+        setNetworkErrorViewContainerId(R.id.viewNetworkError_container);
+    }
+
+    protected void showMessageView(String message) {
+        super.showMessageView();
+        TextView textView = (TextView) findViewById(R.id.viewMessage_messageTextView);
+        textView.setText(message);
+    }
+
+    protected void showEmptyView(String message) {
+        super.showEmptyView();
+        TextView textView = (TextView) findViewById(R.id.viewEmpty_messageTextView);
+        textView.setText(message);
+    }
+
+    protected void showNetworkErrorView(String message) {
+        super.showNetworkErrorView();
+        TextView textView = (TextView) findViewById(R.id.viewNetworkError_messageTextView);
+        textView.setText(message);
+
+        findViewById(R.id.viewNetworkError_retryButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onNetworkErrorRetryButtonClick();
+            }
+        });
+    }
+
+    protected void onNetworkErrorRetryButtonClick() {
+        //TODO if application use service data to  layout, please override this function when first connect fail - Shark.M.Lin
+    }
+
 }

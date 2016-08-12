@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.shark.base.util.StringUtil;
-import com.shark.baseproject.webservice.WebServiceHostCenter;
+import com.shark.baseproject.webservice.WebServiceHost;
 
 /**
  * Created by Shark0 on 2015/8/4.
@@ -13,7 +13,7 @@ public class ApplicationManager {
     private static ApplicationManager instance;
 
     public static boolean debug = false;
-    public static WebServiceHostCenter.HostType hostType = WebServiceHostCenter.HostType.Develop;
+    public static WebServiceHost.HostType hostType = WebServiceHost.HostType.Develop;
 
     private String SHARED_PREFERENCES_APPLICATION_FILE_APPLICATION = "SHARED_PREFERENCES_APPLICATION_FILE_APPLICATION";
     private String SHARED_PREFERENCES_APPLICATION_STRING_GCM_REGISTER_ID = "SHARED_PREFERENCES_APPLICATION_STRING_GCM_REGISTER_ID";

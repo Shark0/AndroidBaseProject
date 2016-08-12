@@ -11,7 +11,7 @@ import com.shark.base.webservice.WebServiceWorker;
 /**
  * Created by Shark on 2015/3/13.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements WebServiceWorker.WorkListener {
 
     protected View contentView;
 
@@ -237,4 +237,8 @@ public class BaseFragment extends Fragment {
     }
 
 
+    @Override
+    public void onWorkDone(WebServiceWorker<?> worker) {
+        WebServiceTaskManager.getInstance().removeWorker(worker);
+    }
 }

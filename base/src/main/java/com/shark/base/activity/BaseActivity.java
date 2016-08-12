@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.shark.base.webservice.WebServiceTaskManager;
 import com.shark.base.webservice.WebServiceWorker;
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity  implements WebServiceWorker.WorkListener  {
 
     protected Dialog loadingDialog;
     protected int contentContainerId = -1;
@@ -207,5 +207,10 @@ public class BaseActivity extends AppCompatActivity {
 
     public void cancelAllWebServiceTask() {
         WebServiceTaskManager.getInstance().cancelTasks(this);
+    }
+
+    @Override
+    public void onWorkDone(WebServiceWorker<?> worker) {
+        WebServiceTaskManager.getInstance().removeWorker(worker);
     }
 }
