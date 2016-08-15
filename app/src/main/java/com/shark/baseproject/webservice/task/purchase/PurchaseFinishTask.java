@@ -1,5 +1,6 @@
 package com.shark.baseproject.webservice.task.purchase;
 
+import com.google.gson.Gson;
 import com.shark.base.activity.iab.entity.IabPurchaseEntity;
 import com.shark.base.webservice.HttpMethod;
 import com.shark.base.webservice.WebServiceErrorType;
@@ -8,6 +9,7 @@ import com.shark.baseproject.webservice.ResponseEntity;
 import com.shark.baseproject.webservice.WebServiceHost;
 import com.shark.baseproject.webservice.factory.HeaderFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +22,7 @@ public class PurchaseFinishTask extends WebServiceTask<ResponseEntity> {
     private PurchaseFinishTaskListener listener;
     private String memberId;
     private IabPurchaseEntity purchaseEntity;
+    private Gson gson = new Gson();
 
     public PurchaseFinishTask(PurchaseFinishTaskListener listener, String memberId, IabPurchaseEntity purchaseEntity) {
         this.listener = listener;
@@ -37,6 +40,19 @@ public class PurchaseFinishTask extends WebServiceTask<ResponseEntity> {
         //FIXME change your api host and path - Shark.M.Lin
         return WebServiceHost.getServiceHost() + "your_purchase_finish_api_path";
     }
+
+    @Override
+    public byte[] generateBody() {
+        String json = gson.toJson(purchaseEntity);
+        byte[] bytes = null;
+        try {
+            bytes = json.getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return bytes;
+    }
+
 
     @Override
     public Map<String, String> generateHttpHeaders() {
