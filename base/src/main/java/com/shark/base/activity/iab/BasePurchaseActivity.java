@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.View;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.google.gson.Gson;
@@ -30,6 +31,9 @@ import java.util.List;
 public abstract class BasePurchaseActivity extends BaseActivity {
 
     protected final int REQUEST_CODE_PURCHASE = 2001;
+
+    protected int initIabErrorContainerId = -1;
+    protected int getIabPurchaseItemErrorContainerId = -1;
 
     protected enum PurchaseServiceError {DISCONNECT, NOT_SUPPORT}
 
@@ -122,6 +126,80 @@ public abstract class BasePurchaseActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
             onIabPurchaseResponseError();
+        }
+    }
+
+    protected void showLoadingView() {
+        super.showLoadingView();
+        hideInitIabServiceErrorView();
+        hideGetIabPurchaseItemErrorView();
+    }
+
+    protected void showMessageView() {
+        super.showMessageView();
+        hideInitIabServiceErrorView();
+        hideGetIabPurchaseItemErrorView();
+    }
+
+    protected void showEmptyView() {
+        super.showEmptyView();
+        hideInitIabServiceErrorView();
+        hideGetIabPurchaseItemErrorView();
+    }
+
+    protected void showNetworkErrorView() {
+        super.showNetworkErrorView();
+        hideInitIabServiceErrorView();
+        hideGetIabPurchaseItemErrorView();
+    }
+
+    protected void showInitIabServiceErrorView() {
+        if(initIabErrorContainerId == -1) {
+            return;
+        }
+        View initIabServiceErrorView = findViewById(initIabErrorContainerId);
+        if(initIabServiceErrorView != null) {
+            initIabServiceErrorView.setVisibility(View.VISIBLE);
+        }
+        hideContentContainer();
+        hideLoadingView();
+        hideNetworkErrorView();
+        hideEmptyView();
+        hideGetIabPurchaseItemErrorView();
+    }
+
+    protected void hideInitIabServiceErrorView() {
+        if(initIabErrorContainerId == -1) {
+            return;
+        }
+        View initIabServiceErrorView = findViewById(initIabErrorContainerId);
+        if(initIabServiceErrorView != null) {
+            initIabServiceErrorView.setVisibility(View.GONE);
+        }
+    }
+
+    protected void showGetIabPurchaseItemErrorView() {
+        if(getIabPurchaseItemErrorContainerId == -1) {
+            return;
+        }
+        View getIabPurchasedItemErrorView = findViewById(getIabPurchaseItemErrorContainerId);
+        if(getIabPurchasedItemErrorView != null) {
+            getIabPurchasedItemErrorView.setVisibility(View.VISIBLE);
+        }
+        hideContentContainer();
+        hideLoadingView();
+        hideNetworkErrorView();
+        hideEmptyView();
+        hideInitIabServiceErrorView();
+    }
+
+    protected void hideGetIabPurchaseItemErrorView() {
+        if(getIabPurchaseItemErrorContainerId == -1) {
+            return;
+        }
+        View getIabPurchasedItemErrorView = findViewById(getIabPurchaseItemErrorContainerId);
+        if(getIabPurchasedItemErrorView != null) {
+            getIabPurchasedItemErrorView.setVisibility(View.GONE);
         }
     }
 
@@ -429,6 +507,22 @@ public abstract class BasePurchaseActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    public int getInitIabErrorContainerId() {
+        return initIabErrorContainerId;
+    }
+
+    public void setInitIabErrorContainerId(int initIabErrorContainerId) {
+        this.initIabErrorContainerId = initIabErrorContainerId;
+    }
+
+    public int getGetIabPurchaseItemErrorContainerId() {
+        return getIabPurchaseItemErrorContainerId;
+    }
+
+    public void setGetIabPurchaseItemErrorContainerId(int getIabPurchaseItemErrorContainerId) {
+        this.getIabPurchaseItemErrorContainerId = getIabPurchaseItemErrorContainerId;
     }
 
     public void setDebug(boolean debug) {

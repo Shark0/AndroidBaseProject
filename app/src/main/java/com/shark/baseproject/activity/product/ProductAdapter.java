@@ -20,7 +20,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private ProductAdapterListener listener;
     private List<ProductItemEntity> productItemEntityList;
-    private boolean hasSearchEditTextFocus = false;
     private boolean hasNextPage;
     private boolean isNextWorkError;
 

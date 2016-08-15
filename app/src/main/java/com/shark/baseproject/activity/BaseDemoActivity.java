@@ -49,6 +49,12 @@ public class BaseDemoActivity extends BaseActivity {
     }
 
     protected void bindNetworkStateViews() {
+        //When application use service API, there have 4 states application have to handle. - Shark.M.Lin
+        //1. Loading - When activity start, application have to show loading view to let user know page is connecting.
+        //2. Message - When user have no permission to see some page content, show some message to user.
+        //3. Empty - If this page have no content, show some message and button to redirect user to other page.
+        //4. Network Error - if network error, give user reconnect button.
+        //BaseActivity only handle 4 states hide and show, developer have to bind 4 state views by self.
         setLoadingViewContainerId(R.id.viewLoading_container);
         setMessageViewContainerId(R.id.viewMessage_container);
         setEmptyViewContainerId(R.id.viewEmpty_container);
