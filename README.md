@@ -3,7 +3,7 @@
 AndroidBaseProject主要是協助Android開發者方便處理網路連線跟Activity的溝通。
 
 ## 網路連線
-在Lib Module com.shark.base.webservice Package中，主要由三個角色來處理，三個角色分別是WebServiceTask、WebServiceWorker、WebServiceManager。
+在Base Module com.shark.base.webservice Package中，主要由三個角色來處理，三個角色分別是WebServiceTask、WebServiceWorker、WebServiceManager。
 
 ### WebServiceTask
 負責定義連線工作的內容，以及定義工作完成的結果。
@@ -25,8 +25,8 @@ App Module中的範例是使用Volley來實作，可參考come.shark.baseproject
 ### WebServiceManager
 透過Tag管理Worker何時開始工作，結束工作。
 
-##頁面處理
-在Lib Module中，我們透過BaseActivity、BaseFragment來協助開發者跟Service構通，並處理溝通期間的UI變化。開發者要自行定義4個View，Content View、Loding View、Message View、Empty View、Network Error View，將4個View的Id設定進BaseActivity或BaseFragment之後，可以透過Show/Hide方法控制頁面在連線時UI的變化。
+## 頁面處理
+在Base Module中，我們透過BaseActivity、BaseFragment來協助開發者跟Service構通，並處理溝通期間的UI變化。開發者要自行定義4個View，Content View、Loding View、Message View、Empty View、Network Error View，將4個View的Id設定進BaseActivity或BaseFragment之後，可以透過Show/Hide方法控制頁面在連線時UI的變化。
 
 ### 連線
 開發者只要定義好Task，以及回報Task結果的Interface，就可以指定Worker並透過startWebService來執行連線工作。
