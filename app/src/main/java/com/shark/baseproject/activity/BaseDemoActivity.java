@@ -9,7 +9,7 @@ import com.shark.base.activity.BaseActivity;
 import com.shark.base.webservice.WebServiceErrorType;
 import com.shark.base.webservice.WebServiceTask;
 import com.shark.baseproject.R;
-import com.shark.baseproject.webservice.worker.VolleyWebServiceWorker;
+import com.shark.baseproject.webservice.worker.volley.VolleyWebServiceWorker;
 
 /**
  * Created by Shark0 on 2016/8/10.

@@ -9,7 +9,7 @@
  * Date         Author           Description	
  * 2014/03/19	Luke.Y.Tsai		 catch Exception.
  *****************************************************************/
-package com.shark.baseproject.webservice.worker;
+package com.shark.baseproject.webservice.worker.volley;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;

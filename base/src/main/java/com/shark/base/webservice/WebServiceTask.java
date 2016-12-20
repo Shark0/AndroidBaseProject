@@ -9,7 +9,7 @@ public abstract class WebServiceTask<R> {
 	protected long endTimeInMiles = 0;
 
 	private byte[] body;
-	private Map<String, String> header;
+	private Map<String, String> headers;
 
 	protected boolean debug = false;
 
@@ -49,12 +49,12 @@ public abstract class WebServiceTask<R> {
 		return endTimeInMiles - startTimeInMiles;
 	}
 
-	public Map<String, String> getHeader() {
-		return header;
+	public Map<String, String> getHeaders() {
+		return headers;
 	}
 
-	public void setHeader(Map<String, String> header) {
-		this.header = header;
+	public void setHeaders(Map<String, String> headers) {
+		this.headers = headers;
 	}
 
 	public byte[] getBody() {

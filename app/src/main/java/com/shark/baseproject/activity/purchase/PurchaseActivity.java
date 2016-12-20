@@ -19,7 +19,7 @@ import com.shark.baseproject.manager.LoginManager;
 import com.shark.baseproject.webservice.task.purchase.PurchaseFinishTask;
 import com.shark.baseproject.webservice.task.purchase.PurchaseItemListTask;
 import com.shark.baseproject.webservice.task.purchase.entity.PurchaseItemEntity;
-import com.shark.baseproject.webservice.worker.VolleyWebServiceWorker;
+import com.shark.baseproject.webservice.worker.volley.VolleyWebServiceWorker;
 import java.util.ArrayList;
 import java.util.List;
 

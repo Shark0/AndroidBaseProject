@@ -7,9 +7,9 @@ import java.util.Map;
 
 public abstract class WebServiceWorker<R> {
 
-    private WebServiceTask<R> task;
-    private WorkListener workListener;
-    private Object tag;
+    protected WebServiceTask<R> task;
+    protected WorkListener workListener;
+    protected Object tag;
 
     private AsyncTask asyncTask;
 
@@ -23,7 +23,7 @@ public abstract class WebServiceWorker<R> {
             @Override
             protected Void doInBackground(Void... params) {
                 // use second thread to create header - Shark.M.Lin
-                task.setHeader(task.generateHttpHeaders());
+                task.setHeaders(task.generateHttpHeaders());
                 task.setBody(task.generateBody());
                 return null;
             }
@@ -33,21 +33,21 @@ public abstract class WebServiceWorker<R> {
                 task.start();
                 switch (task.getMethod()) {
                     case GET:
-                        startHttpGetRequest(task.generateServiceUrl(), task.getHeader(),
+                        startHttpGetRequest(task.generateServiceUrl(), task.getHeaders(),
                                 task.generateResultType(), task.isDebug());
                         break;
                     case POST:
                         startHttpPostRequest(task.generateServiceUrl(),
-                                task.getBody(), task.getHeader(), task.generateResultType(), task.isDebug());
+                                task.getBody(), task.getHeaders(), task.generateResultType(), task.isDebug());
                         break;
                     case PUT:
                         startHttpPutRequest(task.generateServiceUrl(),
-                                task.getBody(), task.getHeader(),
+                                task.getBody(), task.getHeaders(),
                                 task.generateResultType(), task.isDebug());
                         break;
                     case DELETE:
                         startHttpDeleteRequest(task.generateServiceUrl(),
-                                task.getHeader(), task.generateResultType(), task.isDebug());
+                                task.getHeaders(), task.generateResultType(), task.isDebug());
                         break;
                 }
             }
@@ -55,21 +55,23 @@ public abstract class WebServiceWorker<R> {
     }
 
     public void cancelTask() {
-        asyncTask.cancel(true);
+        if(asyncTask != null) {
+            asyncTask.cancel(true);
+        }
         cancelRequest();
     }
 
     protected abstract void startHttpGetRequest(String serviceUrl,
-                                                Map<String, String> headerValues, Type type, boolean debug);
+                                                Map<String, String> headers, Type type, boolean debug);
 
     protected abstract void startHttpPostRequest(String serviceUrl,
-                                                 byte[] body, Map<String, String> headerValue, Type type, boolean debug);
+                                                 byte[] body, Map<String, String> headers, Type type, boolean debug);
 
     protected abstract void startHttpPutRequest(String serviceUrl,
-                                                byte[] body, Map<String, String> headerValue, Type type, boolean debug);
+                                                byte[] body, Map<String, String> headers, Type type, boolean debug);
 
     protected abstract void startHttpDeleteRequest(String serviceUrl,
-                                                   Map<String, String> headerValue, Type type, boolean debug);
+                                                   Map<String, String> headers, Type type, boolean debug);
 
     protected abstract void cancelRequest();
 

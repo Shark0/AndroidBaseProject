@@ -1,4 +1,4 @@
-package com.shark.baseproject.webservice.worker;
+package com.shark.baseproject.webservice.worker.volley;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -29,29 +29,29 @@ public class VolleyWebServiceWorker extends WebServiceWorker implements Response
     }
 
     @Override
-    protected void startHttpGetRequest(String serviceUrl, Map headerValues, Type type, boolean debug) {
-        JsonRequest request = new JsonRequest(Request.Method.GET, serviceUrl, type, this, this, headerValues, debug);
+    protected void startHttpGetRequest(String serviceUrl, Map headers, Type type, boolean debug) {
+        JsonRequest request = new JsonRequest(Request.Method.GET, serviceUrl, type, this, this, headers, debug);
         request.setTag(this);
         requestQueue.add(request);
     }
 
     @Override
-    protected void startHttpPostRequest(String serviceUrl, byte[] body, Map headerValue, Type type, boolean debug) {
-        JsonRequest request = new JsonRequest(Request.Method.POST, serviceUrl, body, type, this, this, headerValue, debug);
+    protected void startHttpPostRequest(String serviceUrl, byte[] body, Map headers, Type type, boolean debug) {
+        JsonRequest request = new JsonRequest(Request.Method.POST, serviceUrl, body, type, this, this, headers, debug);
         request.setTag(this);
         requestQueue.add(request);
     }
 
     @Override
-    protected void startHttpPutRequest(String serviceUrl, byte[] body, Map headerValue, Type type, boolean debug) {
-        JsonRequest request = new JsonRequest(Request.Method.PUT, serviceUrl, body, type, this, this, headerValue, debug);
+    protected void startHttpPutRequest(String serviceUrl, byte[] body, Map headers, Type type, boolean debug) {
+        JsonRequest request = new JsonRequest(Request.Method.PUT, serviceUrl, body, type, this, this, headers, debug);
         request.setTag(this);
         requestQueue.add(request);
     }
 
     @Override
-    protected void startHttpDeleteRequest(String serviceUrl, Map headerValue, Type type, boolean debug) {
-        JsonRequest request = new JsonRequest(Request.Method.DELETE, serviceUrl, type, this, this, headerValue, debug);
+    protected void startHttpDeleteRequest(String serviceUrl, Map headers, Type type, boolean debug) {
+        JsonRequest request = new JsonRequest(Request.Method.DELETE, serviceUrl, type, this, this, headers, debug);
         request.setTag(this);
         requestQueue.add(request);
     }

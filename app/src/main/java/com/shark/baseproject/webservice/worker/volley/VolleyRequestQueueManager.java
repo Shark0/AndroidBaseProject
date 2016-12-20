@@ -1,4 +1,4 @@
-package com.shark.baseproject.webservice.worker;
+package com.shark.baseproject.webservice.worker.volley;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -11,7 +11,7 @@ public class VolleyRequestQueueManager {
     private RequestQueue requestQueue;
 
     private VolleyRequestQueueManager() {
-        requestQueue = Volley.newRequestQueue(ApplicationManager.getInstance().getContext(), new OkHttpHurlStack());
+        requestQueue = Volley.newRequestQueue(ApplicationManager.getInstance().getContext());
     }
 
     public static VolleyRequestQueueManager getInstance() {
