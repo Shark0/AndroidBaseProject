@@ -79,7 +79,6 @@ public class OkHttpWebServiceWorker extends WebServiceWorker implements Callback
             }
         }
         //body
-        //TODO
         builder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), body));
         request = builder.build();
         call = okHttpClient.newCall(request);
@@ -121,7 +120,6 @@ public class OkHttpWebServiceWorker extends WebServiceWorker implements Callback
             }
         }
         //body
-        //TODO
         builder.put(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), body));
         request = builder.build();
         call = okHttpClient.newCall(request);
@@ -147,11 +145,15 @@ public class OkHttpWebServiceWorker extends WebServiceWorker implements Callback
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        int responseCode = response.code();
-        if(debug) {
-            Log.e(TAG, "onResponse code: " + responseCode);
+
+        if(response == null || response.body() == null) {
+            callBackWorkFailed(WebServiceErrorType.WEB_SERVER_ERROR, "");
+            return;
         }
-        if(response == null || response.body() == null || responseCode < 200 || responseCode > 300 ) {
+        int responseCode = response.code();
+        Log.e(TAG, "onResponse code: " + responseCode);
+
+        if(responseCode < 200 || responseCode > 300) {
             callBackWorkFailed(WebServiceErrorType.WEB_SERVER_ERROR, "");
             return;
         }
