@@ -11,7 +11,7 @@
     >
 
     <Button
-        android:id="@+id/activityMain_productListDemoButton"
+        android:id="@+id/activityHome_productListDemoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Product List Demo" />

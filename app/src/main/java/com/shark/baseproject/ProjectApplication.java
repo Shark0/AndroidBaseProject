@@ -1,4 +1,4 @@
-package com.shark.baseproject.application;
+package com.shark.baseproject;
 
 import android.app.Application;
 
